@@ -37,9 +37,9 @@ class ProductsController implements ControllerProviderInterface{
             
             $products = $em->getRepository('Northwind\Entity\Product')->getProductsByCategory($categoryid);
             $productsContainer = new \Northwind\Form\Model\Products($products);
-
+            
             $form = $app['form.factory']->create(new ProductsType(), $productsContainer);
-
+            
             if ($request->isMethod("POST")) {
                 $form->bind($request);
                 
@@ -72,5 +72,8 @@ class ProductsController implements ControllerProviderInterface{
       
         })->bind('products');
         
+        
+        return $controllers;
     }
+    
 }
