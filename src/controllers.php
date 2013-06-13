@@ -12,6 +12,8 @@ $app->get('/', function () use ($app) {
 ->bind('homepage')
 ;
 
+$app->mount('/products', new \Northwind\Controller\ProductsController());
+
 $app->error(function (\Exception $e, $code) use ($app) {
     if ($app['debug']) {
         return;
