@@ -40,7 +40,7 @@ class ProductsType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Northwind\Form\Model\Products'
+            'data_class' => 'Northwind\Repository\Products'
         ));
     }
     

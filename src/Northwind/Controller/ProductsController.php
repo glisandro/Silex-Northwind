@@ -36,24 +36,13 @@ class ProductsController implements ControllerProviderInterface{
             $categories = $em->getRepository('Northwind\Entity\Category')->findAll();
             
             $products = $em->getRepository('Northwind\Entity\Product')->getProductsByCategory($categoryid);
-            $productsContainer = new \Northwind\Form\Model\Products($products);
             
-            $form = $app['form.factory']->create(new ProductsType(), $productsContainer);
+            $form = $app['form.factory']->create(new ProductsType(), $products);
             
             if ($request->isMethod("POST")) {
                 $form->bind($request);
                 
                 if ($form->isValid()) {
-                    
-                    $newproducts = $form->getData()->products;
-
-                    foreach ($products as $product) {
-                        if(!in_array($product, $newproducts))
-                            $em->remove($product);
-                    }
-                    foreach ($newproducts as $product) {
-                        $em->persist($product);
-                    }
 
                     $em->flush();
                     

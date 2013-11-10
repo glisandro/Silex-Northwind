@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityRepository;
 
 class Products extends EntityRepository
 {
+    public $products = array();
+    
     public function getProductsByFilter($app, $categoryid)
     {
 
@@ -33,7 +35,18 @@ class Products extends EntityRepository
     
     public function getProductsByCategory($categoryid) 
     {
-        return $this->_em->getRepository('Northwind\Entity\Product')->findBy(array('category' => $categoryid));
+        $this->products = $this->_em->getRepository('Northwind\Entity\Product')->findBy(array('category' => $categoryid));
+        return $this;
+    }
+    
+    public function addProduct(\Northwind\Entity\Product $product) 
+    {
+        $this->_em->persist($product);   
+    }
+    
+    public function removeProduct(\Northwind\Entity\Product $product) 
+    {
+        $this->_em->remove($product);   
     }
 }
 
